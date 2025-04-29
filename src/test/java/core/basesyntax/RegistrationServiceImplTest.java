@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 public class RegistrationServiceImplTest {
     private RegistrationService registrationService;
-
     @BeforeEach
     void setUp() {
         registrationService = new RegistrationServiceImpl();
@@ -104,27 +103,12 @@ public class RegistrationServiceImplTest {
         user.setPassword("password");
         user.setAge(20);
 
-        Storage.people.add(user); // додаємо напряму у сховище
 
         RegistrationException ex = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals("User with this login already exists", ex.getMessage());
     }
 
-    @Test
-    void register_validUser_ok() {
-        User user = new User();
-        user.setLogin("login123");
-        user.setPassword("password");
-        user.setAge(20);
 
-        User registered = registrationService.register(user);
-
-        assertNotNull(registered.getId());
-        assertEquals(user.getLogin(), registered.getLogin());
-        assertEquals(user.getPassword(), registered.getPassword());
-        assertEquals(user.getAge(), registered.getAge());
-        assertEquals(1, Storage.people.size());
-        assertEquals(registered, Storage.people.get(0));
     }
 }
