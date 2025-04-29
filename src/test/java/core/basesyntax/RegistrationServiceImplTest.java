@@ -1,35 +1,72 @@
 package core.basesyntax.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static least 6", ex.getMessage());
+        }
+
+@Test
+org.junit.jupiter.api.Assertions.assertEquals;
+void register_nullAge_notOk() {
+    User user =import static org.junit.jupiter.api.Assertions.assertThrows new User();
+    user.setLogin("login123");
+    user;
 
 import core.basesyntax.db.Storage;
-import core.basesyntax.model.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import.setPassword("password");
+    user.setAge(null);
 
-public class RegistrationServiceImplTest {
-    private RegistrationService registrationService;
-    @BeforeEach
-    void setUp() {
-        registrationService = new RegistrationServiceImpl();
-        Storage.people.clear();
+    RegistrationException ex = assertThrows core.basesyntax.model.User;
+import org.junit.jupiter.api(RegistrationException.class,
+            ().BeforeEach;
+import org.junit.jupiter.api.Test -> registrationService.register(user));
+    assertEquals;
+
+    public class RegistrationServiceImplTest {
+   ("Age can't be null", ex.getMessage());
+        private RegistrationService registrationService;
+
     }
 
     @Test
-    void register_nullUser_notOk() {
+    void register_underage_notOk() {
+        @BeforeEach
+        void setUp() {
+            User user = new User();
+            user.setLogin("        registrationService =login123");
+            user.setPassword("password");
+            new RegistrationServiceImpl();
+            Storage.people user.setAge(17);
+
+            RegistrationException ex.clear();
+        }
+
+        @Test
+        void register_null = assertThrows(RegistrationException.class,
+                () -> registrationService.register(user));
+        User_notOk() {
+            RegistrationException ex = assertEquals("Age must be at least 18", assertThrows(RegistrationException.class,
+                    () ex.getMessage());
+        }
+
+        @Test
+        void register_loginAlready -> registrationService.register(null));
+        assertEqualsExists_notOk() {
+            User user = new User();
+            ("User can't be null", ex.getMessage());
+            user.setLogin("login123");
+            user.setPassword("password");
+            user.setAge(20 }
+
+        @Test
+        void register_nullLogin_notOk());
+
         RegistrationException ex = assertThrows(RegistrationException.class,
-                () -> registrationService.register(null));
-        assertEquals("User can't be null", ex.getMessage());
-    }
-
-    @Test
-    void register_nullLogin_notOk() {
-        User user = new User();
-        user.setLogin(null);
-        user.setPassword("password");
-        user.setAge(20);
+                () -> registration {
+            User user = new User();
+            user.setLoginService.register(user));
+            assertEquals("(null);
+                    user.setPassword("password");
+            user.setUser with this login already exists", ex.getMessage());
+            Age(20);
 
         RegistrationException ex = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
@@ -107,8 +144,5 @@ public class RegistrationServiceImplTest {
         RegistrationException ex = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals("User with this login already exists", ex.getMessage());
-    }
-
-
     }
 }
