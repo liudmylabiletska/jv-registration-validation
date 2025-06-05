@@ -21,7 +21,7 @@ class RegistrationServiceImplTest {
     @BeforeEach
     void setUp() {
         registrationService = new RegistrationServiceImpl();
-        Storage.people.clear(); // очищаємо сховище перед кожним тестом
+        Storage.people.clear();
     }
 
     @Test
@@ -41,7 +41,7 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_shortLogin_notOk() {
-        User user = createUser("abcde", "validPass", 20); // 5 символів, мінус 1 від мінімуму
+        User user = createUser("abcde", "validPass", 20);
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals(
@@ -51,7 +51,7 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_validLoginLength_ok() {
-        User user = createUser("abcdef", "validPass", 20); // рівно 6 символів
+        User user = createUser("abcdef", "validPass", 20);
         User registeredUser = registrationService.register(user);
         assertEquals(user.getLogin(), registeredUser.getLogin());
         assertEquals(1, Storage.people.size());
@@ -67,7 +67,7 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_shortPassword_notOk() {
-        User user = createUser("validLogin", "12345", 20); // 5 символів, менше 6
+        User user = createUser("validLogin", "12345", 20);
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals(
