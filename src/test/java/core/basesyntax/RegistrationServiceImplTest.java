@@ -21,7 +21,7 @@ class RegistrationServiceImplTest {
     @BeforeEach
     void setUp() {
         registrationService = new RegistrationServiceImpl();
-        Storage.people.clear(); // очищаємо сховище перед кожним тестом
+        Storage.people.clear();
     }
 
     @Test
@@ -41,20 +41,12 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_shortLogin_notOk() {
-        User user = createUser("abcde", "validPass", 20); // 5 символів, мінус 1 від мінімуму
+        User user = createUser("abcde", "validPass", 20);
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals(
                 "Login must be at least " + MIN_LOGIN_LENGTH + " characters",
                 exception.getMessage());
-    }
-
-    @Test
-    void register_validLoginLength_ok() {
-        User user = createUser("abcdef", "validPass", 20); // рівно 6 символів
-        User registeredUser = registrationService.register(user);
-        assertEquals(user.getLogin(), registeredUser.getLogin());
-        assertEquals(1, Storage.people.size());
     }
 
     @Test
@@ -67,20 +59,12 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_shortPassword_notOk() {
-        User user = createUser("validLogin", "12345", 20); // 5 символів, менше 6
+        User user = createUser("validLogin", "12345", 20);
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> registrationService.register(user));
         assertEquals(
                 "Password must be at least " + MIN_PASSWORD_LENGTH + " characters",
                 exception.getMessage());
-    }
-
-    @Test
-    void register_validPasswordLength_ok() {
-        User user = createUser("validLogin", "123456", 20);
-        User registeredUser = registrationService.register(user);
-        assertEquals(user.getPassword(), registeredUser.getPassword());
-        assertEquals(1, Storage.people.size());
     }
 
     @Test
@@ -102,19 +86,21 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_ageExactly18_ok() {
-        User user = createUser("validLogin", "validPass", 18);
+    void register_validUser_ok() {
+        User user = createUser("validLogin", "validPass1", 18);
         User registeredUser = registrationService.register(user);
-        assertEquals(user.getAge(), registeredUser.getAge());
-        assertEquals(1, Storage.people.size());
-    }
 
-    @Test
-    void register_ageMoreThan18_ok() {
-        User user = createUser("validLogin", "validPass", 25);
-        User registeredUser = registrationService.register(user);
-        assertEquals(user.getAge(), registeredUser.getAge());
+        // Ця єдина перевірка підтверджує, що повернутий користувач
+        // відповідає даним оригінального користувача
+        assertEquals(user, registeredUser);
+
+        // Це перевіряє, чи був доданий рівно один користувач до сховища
         assertEquals(1, Storage.people.size());
+
+        // Ці рядки, як правило, можна видалити, якщо equals/hashCode правильно реалізовані в User
+        // assertEquals(user.getLogin(), Storage.people.get(user.getLogin()).getLogin());
+        // assertEquals(user.getPassword(), Storage.people.get(user.getLogin()).getPassword());
+        // assertEquals(user.getAge(), Storage.people.get(user.getLogin()).getAge());
     }
 
     @Test

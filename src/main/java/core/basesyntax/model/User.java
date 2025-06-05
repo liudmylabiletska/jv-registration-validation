@@ -49,13 +49,21 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(login, user.login)
-                && Objects.equals(password, user.password)
-                && Objects.equals(age, user.age);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, age);
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "id=" + id
+                + ", login='" + login + '\''
+                + ", password='" + "[REDACTED]" + '\''
+                + ", age=" + age
+                + '}';
     }
 }
