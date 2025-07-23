@@ -89,18 +89,8 @@ class RegistrationServiceImplTest {
     void register_validUser_ok() {
         User user = createUser("validLogin", "validPass1", 18);
         User registeredUser = registrationService.register(user);
-
-        // Ця єдина перевірка підтверджує, що повернутий користувач
-        // відповідає даним оригінального користувача
         assertEquals(user, registeredUser);
-
-        // Це перевіряє, чи був доданий рівно один користувач до сховища
         assertEquals(1, Storage.people.size());
-
-        // Ці рядки, як правило, можна видалити, якщо equals/hashCode правильно реалізовані в User
-        // assertEquals(user.getLogin(), Storage.people.get(user.getLogin()).getLogin());
-        // assertEquals(user.getPassword(), Storage.people.get(user.getLogin()).getPassword());
-        // assertEquals(user.getAge(), Storage.people.get(user.getLogin()).getAge());
     }
 
     @Test
