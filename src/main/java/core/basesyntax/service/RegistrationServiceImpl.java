@@ -22,14 +22,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         if (user.getLogin().length() < MIN_LOGIN_LENGTH) {
             throw new RegistrationException(
-                    "Login must be at least " + MIN_LOGIN_LENGTH + " characters");
+                    "Login must be at least " + MIN_LOGIN_LENGTH + " characters long");
         }
         if (user.getPassword() == null) {
             throw new RegistrationException("Password cannot be null");
         }
         if (user.getPassword().length() < MIN_PASSWORD_LENGTH) {
             throw new RegistrationException(
-                    "Password must be at least " + MIN_PASSWORD_LENGTH + " characters");
+                    "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long");
         }
         if (user.getAge() == null) {
             throw new RegistrationException("Age cannot be null");
@@ -46,4 +46,3 @@ public class RegistrationServiceImpl implements RegistrationService {
         return storageDao.add(user);
     }
 }
-
